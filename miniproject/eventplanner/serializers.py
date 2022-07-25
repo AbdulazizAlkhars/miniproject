@@ -18,3 +18,14 @@ class EventsUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = '__all__'
+
+
+"""
+Create a route that receives a query and filters according to the names of the events.
+"""
+
+
+class EventsFilterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = '__all__'

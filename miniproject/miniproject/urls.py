@@ -28,4 +28,5 @@ urlpatterns = [
          event_views.EventObjUpdateView.as_view()),
     path('cancel-event/<int:event_id>/',
          event_views.EventObjDeleteView.as_view()),
+    path('event-filter/', event_views.EventFilterView.as_view()),
 ]
