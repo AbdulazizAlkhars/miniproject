@@ -2,13 +2,26 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+"""
+The model must have the following fields:
+- `organizer`: shouldn't exceed 20 characters and must be unique
+- `name`: should not include the word `event`
+- `email`: should be a valid email format / can't be empty
+- `image`: can't be empty
+- `num_of_seats`: can't be less than 5
+- `booked_seats`: has a default value of 0 and can't be greater than `num_of_seats`
+- `start_date`: should be after today's date
+- `end_date`: shouldn't be before `start_date`
+"""
+
+
 class Event(models.Model):
-    organizer = models.CharField(max_length=250)
-    name = models.CharField(max_length=250)
+    organizer = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=100)
     email = models.EmailField()
     image = models.CharField(max_length=250)
-    num_of_seats = models.PositiveIntegerField()
-    booked_seats = models.PositiveIntegerField()
+    num_of_seats = models.IntegerField()
+    booked_seats = models.IntegerField(default=0)
     start_date = models.DateField()
     end_date = models.DateField()
 
