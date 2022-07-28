@@ -1,8 +1,9 @@
 from typing import Generic
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, GenericAPIView
 from .models import Event
-from django_filters.rest_framework import DjangoFilterBackend
-from .serializers import CreateEventSerializer, EventsListSerializer, EventsUpdateSerializer, EventsFilterSerializer
+from .serializers import CreateEventSerializer, EventsListSerializer, EventsUpdateSerializer, EventsFilterSerializer, EventsFullyBookedSerializer
+from rest_framework import filters
+
 # Create your views here.
 
 """
@@ -48,10 +49,26 @@ Create a route that receives a query and filters according to the names of the e
 
 class EventFilterView(ListAPIView):
     queryset = Event.objects.all()
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name']
     serializer_class = EventsFilterSerializer
-    # filter_backends = [DjangoFilterBackend]
-    # filterset_fields = ['name']
 
-    def get_queryset(self):
-        name = self.request.query_params.get('name', None)
-        return Event.objects.filter(name__icontains=name)
+    # def get_queryset(self):
+    #     return Event.objects.filter(
+    #         name_icon__icontains=self.request.query_params.get['name'])
+
+
+"""
+Create a route that fetches a list of fully booked events only.
+"""
+
+
+# class FullyBookedListView(ListAPIView):
+
+#     # queryset = Event.objects.filter(
+#     #     booked_seats=int(Event.object.num_of_seats))
+#     serializer_class = EventsFullyBookedSerializer
+
+#     def get_queryset(self):
+#         fully_booked = Event.objects.filter()
+#         return fully_booked

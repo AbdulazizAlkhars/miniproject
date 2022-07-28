@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 """
 The model must have the following fields:
@@ -19,9 +19,10 @@ class Event(models.Model):
     organizer = models.CharField(max_length=20, unique=True)
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    image = models.CharField(max_length=250)
-    num_of_seats = models.IntegerField()
-    booked_seats = models.IntegerField(default=0)
+    image = models.CharField(max_length=250, blank=True, null=True)
+    num_of_seats = models.IntegerField(validators=[MinValueValidator(5)])
+    booked_seats = models.IntegerField(
+        default=0, validators=[MaxValueValidator(num_of_seats)])
     start_date = models.DateField()
     end_date = models.DateField()
 

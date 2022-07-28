@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from eventplanner import views as event_views
 
+"""
+Create a route that fetches a list of fully booked events only.
+"""
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('create-event/', event_views.AddEventAPIView.as_view(),
@@ -28,5 +32,7 @@ urlpatterns = [
          event_views.EventObjUpdateView.as_view()),
     path('cancel-event/<int:event_id>/',
          event_views.EventObjDeleteView.as_view()),
-    path('event-filter/', event_views.EventFilterView.as_view()),
+    path('event-filter/',
+         event_views.EventFilterView.as_view()),
+    path('fullybooked-list/', event_views.FullyBookedListView.as_view()),
 ]
